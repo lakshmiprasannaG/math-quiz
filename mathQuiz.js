@@ -1,33 +1,23 @@
+const { Question } = require('./question.js');
+
 const fs = require('fs');
 
-const userAnswer = (fileName) => {
+const getUserAnswer = (fileName) => {
   const content = fs.readFileSync(fileName, 'utf8');
   return content.split('\n').slice(-1).join('');
 };
 
-const assertUserAnswer = ({ userAnswer, answer }) => {
-  return parseInt(userAnswer) === answer;
-};
-
-const question = () => {
-  const firstNumber = 1;
-  const secondNumber = 2;
-  const operator = '+';
-
-  return firstNumber + operator + secondNumber;
-};
-
 const conductQuiz = () => {
-  const round = {};
-  round.question = question();
+  const operands = [1, 2, 3, 4];
+  const operator = '+';
+  const question = new Question(operator, ...operands);
 
-  console.log(round.question);
+  console.log(question.question());
 
-  round.answer = eval(round.question);
   fs.watch('./userAnswer.js', (eventType, fileName) => {
-    round.userAnswer = userAnswer(fileName);
-    round.result = assertUserAnswer(round);
-    console.log(round);
+    const userAnswer = getUserAnswer(fileName);
+    const result = question.assertAnswer(userAnswer);
+    console.log(result);
   });
 };
 

@@ -97,7 +97,8 @@
     "overrides": [
         {
             "files": [
-                "mathQuiz.js"
+                "mathQuiz.js",
+                "question.js"
             ],
             "rules": {
                 "no-magic-numbers": "off",
