@@ -1,24 +1,42 @@
 const { Question } = require('./question.js');
+const { Quiz } = require('./quiz.js');
 
-const fs = require('fs');
+const randomOperator = number => Math.floor(Math.random() * number);
 
-const getUserAnswer = (fileName) => {
-  const content = fs.readFileSync(fileName, 'utf8');
-  return content.split('\n').slice(-1).join('');
+const getOperator = () => {
+  const operators = ['+', '-', '*', '/'];
+  return operators[randomOperator(4)];
 };
 
-const conductQuiz = () => {
-  const operands = [1, 2, 3, 4];
-  const operator = '+';
-  const question = new Question(operator, ...operands);
+const createQuiz = () => {
+  const operands = [1, 2];
 
-  console.log(question.question());
+  const question1 = new Question(getOperator(), ...operands);
+  const question2 = new Question(getOperator(), ...operands);
+  const question3 = new Question(getOperator(), ...operands);
 
-  fs.watch('./userAnswer.js', (eventType, fileName) => {
-    const userAnswer = getUserAnswer(fileName);
-    const result = question.assertAnswer(userAnswer);
-    console.log(result);
+  const questions = [question1, question2, question3];
+
+  return new Quiz(questions);
+};
+
+const main = () => {
+  const quiz = createQuiz();
+
+  console.log(quiz.getQuestion());
+
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('data', userAnswer => {
+    quiz.fillAnswer(userAnswer.trim());
+
+    if (quiz.isQuizDone()) {
+      console.log(quiz.getResults());
+      process.stdin.destroy();
+      return;
+    }
+
+    console.log(quiz.getQuestion());
   });
 };
 
-conductQuiz();
+main();
