@@ -18,7 +18,7 @@ class Quiz {
   }
 
   isQuizDone() {
-    return this.#questions.length === this.#currentIndex;
+    return this.#questions.every(question => question.isAnswered());
   }
 
   getResults() {
