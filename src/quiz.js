@@ -17,7 +17,7 @@ class Quiz {
     this.#currentIndex++;
   }
 
-  isQuizDone() {
+  isDone() {
     return this.#questions.every(question => question.isAnswered());
   }
 
