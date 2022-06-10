@@ -1,0 +1,27 @@
+{
+  "name": "mathquiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "conductQuiz.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node conductQuiz.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakshmiprasannaG/math-quiz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lakshmiprasannaG/math-quiz/issues"
+  },
+  "homepage": "https://github.com/lakshmiprasannaG/math-quiz#readme",
+  "devDependencies": {
+    "eslint": "^8.17.0",
+    "mocha": "^10.0.0"
+  }
+}
